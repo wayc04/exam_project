@@ -19,7 +19,7 @@
         
         </div>
         <div class="header-right">
-            <el-dropdown>
+            <el-dropdown @command="handleClick">
                 <div  class="el-dropdown-link flex-box">
                     <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png">    
                     </el-avatar>
@@ -27,7 +27,7 @@
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+                        <el-dropdown-item command="logout">退出登录</el-dropdown-item>
                         
                     </el-dropdown-menu>
                 </template>
@@ -49,12 +49,9 @@
 
     // 退出登录
     const logout = (item, index) => {
-        // store.commit('clearMenu');
         localStorage.removeItem('userInfo');
         router.push('/login');
-        // router.push('/login');
-        // window.history.replaceState(null, "", 'user.html');
-        window.location.reload();
+        window.location.href = window.location.origin;
     }
 
 
@@ -77,6 +74,12 @@
             router.push({
                 path:selectMenuData[index].path
             })
+        }
+    }
+
+    const handleClick = (command) => {
+        if(command === 'logout') {
+            logout();
         }
     }
 </script>
