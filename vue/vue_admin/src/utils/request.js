@@ -15,7 +15,7 @@ http.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     const token = localStorage.getItem('pz_token')
     // 不需要添加token的api
-    const whiteUrl = ['/stulogin','/register','/login']
+    const whiteUrl = ['/stulogin','/register','/login' ,'/deleteSubject']
     if(token && !whiteUrl.includes(config.url)){
       config.headers['X-token'] = token
       
