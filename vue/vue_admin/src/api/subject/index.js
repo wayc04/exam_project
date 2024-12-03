@@ -27,3 +27,17 @@ export const updateQuestion = (param) => {
 export const deleteQuestion = (param) => {
     return request.post('deleteSubject', param)
 }
+
+// 根据课程id获取课程
+export const findCourseById = (param) => {
+    return request.post('findCourseById', param)
+}
+
+// 查询所有课程
+export const findAllCourse = (param) => {
+    return request.get('findAllCourse', param)
+}
+
+export const addSubject = (param) => {
+    return request.post('addSubject', param)
+}
