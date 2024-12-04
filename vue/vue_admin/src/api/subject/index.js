@@ -28,16 +28,53 @@ export const deleteQuestion = (param) => {
     return request.post('deleteSubject', param)
 }
 
+
+//获取所有的试卷信息
+export const findAllPaperInfo = (param) => {
+    return request.get('findAllPaper', param)
+}
+
+//根据id获取试卷信息
+export const findSubjectByPaperId = (param) => {
+    return request.post('findSubjectByPaperId', param)
+}
+
+//获取所有的课程
+
 // 根据课程id获取课程
 export const findCourseById = (param) => {
     return request.post('findCourseById', param)
 }
 
 // 查询所有课程
+
 export const findAllCourse = (param) => {
     return request.get('findAllCourse', param)
 }
 
+
+//新增试卷
+export const addPaper = (param) => {
+    return request.post('addPaper', param)
+}
+
+//删除试卷
+export const deletePaper = (param) => {
+    return request.post('deletePaper', param)
+}
+
+//根据课程查找题目
+export const findSubjectByInfo = (param) => {
+    return request.post('findSubjectByInfo', param)
+}
+
+//在试卷中加入题目，注意课程号cno要相同
+export const addSubjectToPaper = (param) => {
+    return request.post('addSubjectToPaper', param)
+}
+
+
 export const addSubject = (param) => {
     return request.post('addSubject', param)
 }
+
