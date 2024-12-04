@@ -15,3 +15,13 @@ export const getClassList = (data) =>{
 export const getExam = (data) =>{
     return request.post('listExams', data)
 }
+
+//新增班级
+export const addClass = (data) =>{
+    return request.post('addClass', data)
+}
+
+//根据班级id获取学生列表
+export const getStudentsByClass = (data) =>{
+    return request.post('getStudentsByClass', data)
+}
