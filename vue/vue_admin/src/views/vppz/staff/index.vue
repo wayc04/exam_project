@@ -11,7 +11,7 @@
       <el-table-column prop="sd" label="选项D" width="120" />
       <el-table-column prop="skey" label="答案" width="120"/>
       <el-table-column prop="difficulty" label="难度" width="120"/>
-      <el-table-column fixed="right" label="Operations" min-width="120">
+      <el-table-column fixed="right" label="操作" min-width="120">
           <template #default="{ row }">
               <el-button link type="danger" size="small" @click="showDeleteDialog(row)">
                   删除
@@ -27,7 +27,7 @@
       <el-table-column prop="cname" label="所属课程" width="120" />
       <el-table-column prop="skey" label="答案" width="120"/>
       <el-table-column prop="difficulty" label="难度" width="120"/>
-      <el-table-column fixed="right" label="Operations" min-width="120">
+      <el-table-column fixed="right" label="操作" min-width="120">
           <template #default="{ row }">
               <el-button link type="danger" size="small" @click="showDeleteDialog(row)">
                   删除
@@ -43,7 +43,7 @@
       <el-table-column prop="cname" label="所属课程" width="120" />
       <el-table-column prop="skey" label="参考答案" width="120"/>
       <el-table-column prop="difficulty" label="难度" width="120"/>
-      <el-table-column fixed="right" label="Operations" min-width="120">
+      <el-table-column fixed="right" label="操作" min-width="120">
           <template #default="{ row }">
               <el-button link type="danger" size="small" @click="showDeleteDialog(row)">
                   删除
