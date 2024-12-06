@@ -3,6 +3,7 @@ import {ElMessage} from 'element-plus'
 
 const http = axios.create({
     baseURL: 'http://121.37.0.57:8080',
+    // baseURL: 'http://localhost:8080',
     timeout:10000,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -13,11 +14,11 @@ const http = axios.create({
 // 添加拦截器
 http.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
-    const token = localStorage.getItem('pz_token')
+    const token = localStorage.getItem('token')
     // 不需要添加token的api
     const whiteUrl = ['/stulogin','/register','/login' ,'/deleteSubject','/findCourseById']
     if(token && !whiteUrl.includes(config.url)){
-      config.headers['X-token'] = token
+      config.headers['token'] = token
       
     }
     return config;
@@ -33,8 +34,8 @@ http.interceptors.response.use(function (response) {
       ElMessage.warning(response.data.message)
     }
     if(response.data.code === -2){
-      localStorage.removeItem('pz_token')
-      localStorage.removeItem('pz_userInfo')
+      localStorage.removeItem('token')
+      localStorage.removeItem('userInfo')
       window.location.href = window.location.origin
     }
     return response;

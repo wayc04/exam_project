@@ -8,6 +8,7 @@ import Class from '../views/class/class/index.vue'
 import Group from '../views/class/group/index.vue'
 import Staff from '../views/vppz/staff/index.vue'
 import Order from '../views/vppz/order/index.vue'
+import Code from '../views/vppz/code/index.vue'
 import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs'
 import ExamList from  '../views/exam/exam_list/index.vue'
 
@@ -47,13 +48,18 @@ const routes = [
                     {
                         path: '',
                         alias: ['staff'],
-                        meta: { id: '1', name: 'xx管理', icon: 'Checked', path: '/vppz/staff', describe: '陪护师可以进行创建和修改，设置对应生效状态控制C端选择' },
+                        meta: { id: '1', name: '基础题', icon: 'Checked', path: '/vppz/staff', describe: '陪护师可以进行创建和修改，设置对应生效状态控制C端选择' },
                         component: Staff
                     },
                     {
                         path: 'order',
-                        meta: { id: '2', name: '试题管理', icon: 'List', path: '/vppz/order', describe: 'C端下单后可以查看所有订单状态，已支付的订单可以完成陪护状态修改' },
+                        meta: { id: '2', name: '试卷管理', icon: 'List', path: '/vppz/order', describe: 'C端下单后可以查看所有订单状态，已支付的订单可以完成陪护状态修改' },
                         component: Order
+                    },
+                    {
+                        path: 'code',
+                        meta: { id: '3', name: '编程题', icon: 'List', path: '/vppz/code', describe: 'C端下单后可以查看所有订单状态，已支付的订单可以完成陪护状态修改' },
+                        component: Code
                     }
                 ]
             },

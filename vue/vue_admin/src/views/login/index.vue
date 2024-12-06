@@ -144,7 +144,7 @@ const submitForm = async (FormEl) => {
                     if(data.code === 1) {
                         ElMessage.success('登录成功')
                         console.log(data)
-                        // localStorage.setItem('token', data.token)
+                        localStorage.setItem('token', data.data.token)
                         localStorage.setItem('userInfo', JSON.stringify(data.data))
                         // 页面跳转
                         router.push('/')

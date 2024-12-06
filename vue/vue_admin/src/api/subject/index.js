@@ -78,3 +78,43 @@ export const addSubject = (param) => {
     return request.post('addSubject', param)
 }
 
+// 根据题目类型获取题目
+export const findSubjectByType = (param) => {
+    return request.post('getSubjectByType', param)
+}
+
+// 根据题目id获取测试点信息，获取参数sid：题目id
+export const getTestPointBySid = (param) => {
+    return request.post('getTestDataBySid', param)
+}
+
+// 添加编程题，接受参数为：String scontent, Integer difficulty, Integer timeout, Integer memorylimit
+export const addCodeQuestion = (param) => {
+    return request.post('addProgrammingSubject', param)
+}
+
+// 添加测试点，接受参数为：Integer sid, String t1, String answer1
+export const addTestPoint = (param) => {
+    return request.post('addTestPoint', param)
+}
+
+// 删除测试点，接受参数为：Integer tid
+export const deleteTestPoint = (param) => {
+    return request.post('deleteTestPoint', param)
+
+}
+
+// 修改测试点，接受参数为：Integer tid, String t1, String answer1
+export const updateTestPoint = (param) => {
+    return request.post('updateTestPoint', param)
+}
+
+// 删除编程题，接受参数为：Integer sid
+export const deleteCodeQuestion = (param) => {
+    return request.post('deleteProgrammingSubject', param)
+}
+
+// 修改编程题，接受参数为：Integer sid, String scontent, Integer difficulty, Integer timeout, Integer memorylimit
+export const updateCodeQuestion = (param) => {
+    return request.post('updateProgrammingSubject', param)
+}
