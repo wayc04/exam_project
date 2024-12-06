@@ -37,33 +37,60 @@
       <el-table-column prop="sid" label="题目ID" width="150" />
       <el-table-column prop="type" label="题目类型" width="100" />
       <el-table-column prop="difficulty" label="难度" width="70" />
-      <el-table-column prop="scontent" label="题目" width="300" />
-    </el-table>
+      <el-table-column label="题目" width="300">
+        <template #default="{ row }">
+          <div v-html="row.scontent"></div>
+        </template>
+      </el-table-column>    </el-table>
   </el-dialog>
 
   <!--添加题目页-->
   <el-dialog v-model="dialogAddSubjectVisible" title="添加题目" width="800">
     <h1>选择题</h1>
-    <el-table :data="ChoiceQuestion" @selection-change="handleSelectionChange">
+    <el-table :data="ChoiceQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
       <el-table-column type="selection" width="50" />
       <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column prop="scontent" label="题目" width="300" />
+      <el-table-column label="题目" width="300">
+        <template #default="{ row }">
+          <div v-html="row.scontent"></div>
+        </template>
+      </el-table-column>
       <el-table-column prop="difficulty" label="难度" width="70" />
     </el-table>
 
     <h1>判断题</h1>
-    <el-table :data="JudgeQuestion" @selection-change="handleSelectionChange">
+    <el-table :data="JudgeQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
       <el-table-column type="selection" width="50" />
       <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column prop="scontent" label="题目" width="300" />
+      <el-table-column label="题目" width="300">
+        <template #default="{ row }">
+          <div v-html="row.scontent"></div>
+        </template>
+      </el-table-column>
       <el-table-column prop="difficulty" label="难度" width="70" />
     </el-table>
 
     <h1>简答题</h1>
-    <el-table :data="ShortAnswerQuestion" @selection-change="handleSelectionChange">
+    <el-table :data="ShortAnswerQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
       <el-table-column type="selection" width="50" />
       <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column prop="scontent" label="题目" width="300" />
+      <el-table-column label="题目" width="300">
+        <template #default="{ row }">
+          <div v-html="row.scontent"></div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="difficulty" label="难度" width="70" />
+    </el-table>
+
+    <h1>编程题</h1>
+    <el-table :data="ProgramQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
+      <el-table-column type="selection" width="50" />
+      <el-table-column prop="sid" label="试题ID" width="150" />
+      <el-table-column label="题目" width="300">
+        <template #default="{ row }">
+          <div v-html="row.scontent"></div>
+        </template>
+      </el-table-column>
       <el-table-column prop="difficulty" label="难度" width="70" />
     </el-table>
 
@@ -149,7 +176,10 @@ const dialogClick1 = (row)=>{
 
   findSubjectByPaperId({pid:row.pid}).then(({data})=>{
     /*console.log(data.data)//根据pid获取试卷中的题目*/
-    subjectInPaper.value = data.data
+    subjectInPaper.value = data.data.map((item) => ({
+      ...item,
+      scontent: item.scontent.replace(/\n/g, '<br>'),
+    }));
   });
 }
 
@@ -206,6 +236,7 @@ let dialogAddSubjectVisible = ref(false)
 let ChoiceQuestion = ref([])
 let JudgeQuestion = ref([])
 let ShortAnswerQuestion = ref([])
+let ProgramQuestion = ref([])
 
 let selectedSids = ref([]);//sid
 let pidForAddSubject = ref([]);//pid
@@ -216,13 +247,28 @@ const dialogAddSubject=(row)=>{
   selectedSids.value = [];
 
   findSubjectByInfo({cno:row.cno,type:"选择题"}).then(({data})=>{
-    ChoiceQuestion.value = data.data;
+    ChoiceQuestion.value = data.data.map((item) => ({
+      ...item,
+      scontent: item.scontent.replace(/\n/g, '<br>'),
+    }));;
   });
   findSubjectByInfo({cno:row.cno,type:"判断题"}).then(({data})=>{
-    JudgeQuestion.value = data.data;
+    JudgeQuestion.value = data.data.map((item) => ({
+      ...item,
+      scontent: item.scontent.replace(/\n/g, '<br>'),
+    }));;
   });
   findSubjectByInfo({cno:row.cno,type:"简答题"}).then(({data})=>{
-    ShortAnswerQuestion.value = data.data;
+    ShortAnswerQuestion.value = data.data.map((item) => ({
+      ...item,
+      scontent: item.scontent.replace(/\n/g, '<br>'),
+    }));;
+  });
+  findSubjectByInfo({cno:row.cno,type:"编程题"}).then(({data})=>{
+    ProgramQuestion.value = data.data.map((item) => ({
+      ...item,
+      scontent: item.scontent.replace(/\n/g, '<br>'),
+    }));;
   });
   dialogAddSubjectVisible.value = true
 };
@@ -259,6 +305,8 @@ const searchPaper=()=>{
     exam_info.value = total_exam_info.value.filter(exam => exam.cno === selectByCourse.value);
   }
 }
+
+
 </script>
 
 <style lang="scss" scoped>
