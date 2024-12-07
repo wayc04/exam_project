@@ -44,61 +44,82 @@
       </el-table-column>    </el-table>
   </el-dialog>
 
-  <!--添加题目页-->
-  <el-dialog v-model="dialogAddSubjectVisible" title="添加题目" width="800">
-    <h1>选择题</h1>
-    <el-table :data="ChoiceQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
-      <el-table-column type="selection" width="50" />
-      <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column label="题目" width="300">
-        <template #default="{ row }">
-          <div v-html="row.scontent"></div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="difficulty" label="难度" width="70" />
-    </el-table>
 
-    <h1>判断题</h1>
-    <el-table :data="JudgeQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
-      <el-table-column type="selection" width="50" />
-      <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column label="题目" width="300">
-        <template #default="{ row }">
-          <div v-html="row.scontent"></div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="difficulty" label="难度" width="70" />
-    </el-table>
+    <!-- 添加题目页面 -->
+    <el-dialog v-model="dialogAddSubjectVisible" title="添加题目" width="800">
+      <h1>选择题</h1>
+      <el-table :data="ChoiceQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
+        <!--el-table-column type="selection" width="50" /-->
+        <el-table-column prop="sid" label="试题ID" width="150" />
+        <el-table-column label="题目" width="250">
+          <template #default="{ row }">
+            <div v-html="row.scontent"></div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="difficulty" label="难度" width="70" />
+        <el-table-column label="分数" width="180">
+          <template #default="{ row }">
+            <el-input v-model="questionScores[row.sid]" type="number" placeholder="输入分数以添加" style="width: 150px;"></el-input>
+          </template>
+        </el-table-column>
+      </el-table>
 
-    <h1>简答题</h1>
-    <el-table :data="ShortAnswerQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
-      <el-table-column type="selection" width="50" />
-      <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column label="题目" width="300">
-        <template #default="{ row }">
-          <div v-html="row.scontent"></div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="difficulty" label="难度" width="70" />
-    </el-table>
+      <h1>判断题</h1>
+      <el-table :data="JudgeQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
+        <!--el-table-column type="selection" width="50" /-->
+        <el-table-column prop="sid" label="试题ID" width="150" />
+        <el-table-column label="题目" width="250">
+          <template #default="{ row }">
+            <div v-html="row.scontent"></div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="difficulty" label="难度" width="70" />
+        <el-table-column label="分数" width="180">
+          <template #default="{ row }">
+            <el-input v-model="questionScores[row.sid]" type="number" placeholder="输入分数以添加" style="width: 150px;"></el-input>
+          </template>
+        </el-table-column>
+      </el-table>
 
-    <h1>编程题</h1>
-    <el-table :data="ProgramQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
-      <el-table-column type="selection" width="50" />
-      <el-table-column prop="sid" label="试题ID" width="150" />
-      <el-table-column label="题目" width="300">
-        <template #default="{ row }">
-          <div v-html="row.scontent"></div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="difficulty" label="难度" width="70" />
-    </el-table>
+      <h1>简答题</h1>
+      <el-table :data="ShortAnswerQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
+        <!--el-table-column type="selection" width="50" /-->
+        <el-table-column prop="sid" label="试题ID" width="150" />
+        <el-table-column label="题目" width="250">
+          <template #default="{ row }">
+            <div v-html="row.scontent"></div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="difficulty" label="难度" width="70" />
+        <el-table-column label="分数" width="180">
+          <template #default="{ row }">
+            <el-input v-model="questionScores[row.sid]" type="number" placeholder="输入分数以添加" style="width: 150px;"></el-input>
+          </template>
+        </el-table-column>
+      </el-table>
 
-    <div class="dialog-footer">
-      <el-button @click="dialogAddSubjectVisible = false">取消</el-button>
-      <el-button type="primary" @click="addSubject">确认</el-button>
-    </div>
-  </el-dialog>
+      <h1>编程题</h1>
+      <el-table :data="ProgramQuestion" @selection-change="handleSelectionChange" style="margin-bottom: 10px; margin-top: 10px">
+        <!--el-table-column type="selection" width="50" /-->
+        <el-table-column prop="sid" label="试题ID" width="150" />
+        <el-table-column label="题目" width="250">
+          <template #default="{ row }">
+            <div v-html="row.scontent"></div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="difficulty" label="难度" width="70" />
+        <el-table-column label="分数" width="180">
+          <template #default="{ row }">
+            <el-input v-model="questionScores[row.sid]" type="number" placeholder="输入分数以添加" style="width: 150px;"></el-input>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <div class="dialog-footer">
+        <el-button @click="dialogAddSubjectVisible = false">取消</el-button>
+        <el-button type="primary" @click="addSubject">确认</el-button>
+      </div>
+    </el-dialog>
 
 <!--删除页-->
   <el-dialog v-model="dialogDeleteVisible" title="确认删除？" width="500">
@@ -250,43 +271,121 @@ const dialogAddSubject=(row)=>{
     ChoiceQuestion.value = data.data.map((item) => ({
       ...item,
       scontent: item.scontent.replace(/\n/g, '<br>'),
-    }));;
+    }));
   });
   findSubjectByInfo({cno:row.cno,type:"判断题"}).then(({data})=>{
     JudgeQuestion.value = data.data.map((item) => ({
       ...item,
       scontent: item.scontent.replace(/\n/g, '<br>'),
-    }));;
+    }));
   });
   findSubjectByInfo({cno:row.cno,type:"简答题"}).then(({data})=>{
     ShortAnswerQuestion.value = data.data.map((item) => ({
       ...item,
       scontent: item.scontent.replace(/\n/g, '<br>'),
-    }));;
+    }));
   });
   findSubjectByInfo({cno:row.cno,type:"编程题"}).then(({data})=>{
     ProgramQuestion.value = data.data.map((item) => ({
       ...item,
       scontent: item.scontent.replace(/\n/g, '<br>'),
-    }));;
+    }));
   });
   dialogAddSubjectVisible.value = true
 };
 
 // 更新选中题目
 
-// 已选择的题目sid
+//更改的部分
+
+// 用来存储每道题目的分数，结构是 { "sid": "分数" }
+let questionScores = ref({});
+
+/************************************************************
+// 更新题目选择处理函数
+ ************************************************************/
+
+// 更新题目选择处理函数
 const handleSelectionChange = (selection) => {
-  const selectedIds = selection.map((item) => item.sid);
-  selectedSids.value = [...new Set([...selectedSids.value, ...selectedIds])];
+  // 创建一个新的 Set 来存储当前选中的题目 sid
+  const selectedSids = new Set(selection.map((item) => item.sid));
+
+  // 创建 questionScores 的副本
+  const updatedScores = { ...questionScores.value };
+
+  // 清除 questionScores 中未选中的题目的分数
+  for (const sid in updatedScores) {
+    if (!selectedSids.has(sid)) {
+      delete updatedScores[sid];  // 移除未选中的题目
+    }
+  }
+
+  // 将更新后的 questionScores 赋值回去
+  questionScores.value = updatedScores;
+
+  // 遍历选中的题目，如果没有分数，则初始化为空字符串
+  selection.forEach((item) => {
+    if (!(item.sid in updatedScores)) {
+      updatedScores[item.sid] = "";  // 给未设置过分数的题目初始化为空字符串
+    }
+  });
+
+  // 更新 questionScores 为新的分数对象
+  questionScores.value = updatedScores;
 };
 
-const addSubject=()=>{
-  //console.log(selectedSids.value)
-  addSubjectToPaper({pid:pidForAddSubject.value,sids:selectedSids.value}).then(({data})=> {
-    //console.log(data.data);
+
+
+let grade = ref({}); // 用来存储 { "sid": "分数" }
+/*************************************************
+// 添加题目并提交分数
+const addSubject = () => {
+  grade = ({});
+  // 遍历所有选择的题目及其对应的分数
+  for (const sid in questionScores.value) {
+    const score = questionScores.value[sid];
+    if (score) { // 只有输入了分数的题目才会被添加
+      grade[String(sid)] = String(score);
+    }
+  }
+
+  console.log(grade)
+  // 调用 API 提交数据
+
+  addSubjectToPaper({"pid": pidForAddSubject.value, "grade":grade }).then(({ data }) => {
+    // 处理响应数据...
+  });
+  dialogAddSubjectVisible.value = false;
+};
+*******************************************************/
+
+
+const addSubject = () => {
+  // 用来存储题目的分数
+  grade = {};
+
+  // 只将那些有分数的题目添加到 grade 对象
+  for (const sid in questionScores.value) {
+    const score = questionScores.value[sid];
+    if (score !== "") { // 只有输入了分数的题目才会被添加
+      grade[sid] = score; // 添加题目的分数
+    }
+  }
+
+  // 确保 grade 不为空
+  if (Object.keys(grade).length > 0) {
+    // 调用 API 提交选中的题目和分数
+    addSubjectToPaper({
+      pid: pidForAddSubject.value,
+      grade: grade
+    }).then(({ data }) => {
+      // 处理 API 响应数据
     });
-  dialogAddSubjectVisible.value = false
+    dialogAddSubjectVisible.value = false;
+  } else {
+    // 如果没有选中题目或者没有输入分数，提示用户
+    console.log("请勾选题目并输入分数后再提交。");
+  }
 };
 
 let all = "全部科目"

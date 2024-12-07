@@ -70,7 +70,12 @@ export const findSubjectByInfo = (param) => {
 
 //在试卷中加入题目，注意课程号cno要相同
 export const addSubjectToPaper = (param) => {
-    return request.post('addSubjectToPaper', param)
+    return request.post('addSubjectToPaper', param, {
+        headers:{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+        }
+    })
 }
 
 
