@@ -276,7 +276,33 @@
       console.error('删除测试点失败:', error);
     }
   };
-  
+
+  const openEditTestPointDialog = (row) => {
+    // 填充编辑表单
+    editTestPoint.value = { tid: row.tid, t1: row.t1, answer1: row.answer1 };
+    editTestPointDialogVisible.value = true; // 显示编辑对话框
+  };
+
+  const updateTestPointSubmit = async () => {
+    try {
+      const response = await updateTestPoint({
+        tid: editTestPoint.value.tid,
+        t1: editTestPoint.value.t1,
+        answer1: editTestPoint.value.answer1
+      });
+      console.log('修改测试点:', response);
+      if (response.data.code === 1) {
+        // 重新获取测试点信息以更新列表
+        await handleDetail(currentSid.value);
+        editTestPointDialogVisible.value = false; // 关闭对话框
+      } else {
+        console.error('修改测试点失败:', response.msg);
+      }
+    } catch (error) {
+      console.error('修改测试点失败:', error);
+    }
+  };
+
   const deleteCodeQuestionSubmit = async (sid) => {
     try {
       const response = await deleteCodeQuestion({ sid });

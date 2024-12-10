@@ -20,13 +20,23 @@
                     </el-select>
                 </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="150">
+            <el-table-column fixed="right" label="操作" width="250">
                 <template #default="{ row }">
                     <el-button type="primary" size="small" @click="() => editExam(row)">修改</el-button>
                     <el-button type="danger" size="small" @click="() => confirmDelete(row.eid)">删除</el-button>
+                    <el-button type="primary" size="small" @click="showScore(row)">分数查询</el-button>
                 </template>
             </el-table-column>
         </el-table>
+
+        <!--分数查询-->
+      <el-dialog v-model="showScoreDialogVisible" title="分数" width="800">
+        <el-table :data="allScore">
+          <el-table-column property="userid" label="用户id" width="150" />
+          <el-table-column property="username" label="用户名" width="200" />
+          <el-table-column property="grade" label="分数" width="100"/>
+        </el-table>
+      </el-dialog>
 
         <!-- 修改考试的对话框 -->
         <el-dialog v-model="dialogVisible" title="修改考试信息">
@@ -119,7 +129,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue';
+import {ref, onMounted, computed, reactive} from 'vue';
 import { getExamList, 
     findCourseById, 
     findTeacherById, 
@@ -129,7 +139,10 @@ import { getExamList,
     getAllClasses,
     getAllPaper,
     addExam as apiAddExam,
-} from '../../../api/exam'; // 根据你的实际路径调整
+    getGradeByEidAndUserid,
+    stubyid
+} from '../../../api/exam';
+import {all} from "axios"; // 根据你的实际路径调整
 
 const examList = ref([]); // 考试列表数据
 const courses = ref(new Map()); // 存储课程 ID 和名称的映射
@@ -304,6 +317,56 @@ const confirmDelete = async (eid) => {
     } catch (error) {
         console.error('删除考试失败:', error);
     }
+};
+
+let showScoreDialogVisible = ref(false);
+
+let allScore = ref([])
+
+/*const showScore = (row)=>{
+  getGradeByEidAndUserid({eid:row.eid}).then(({data})=>{
+    allScore.value = data.data;
+    console.log(row.eid)
+    console.log(data.data)
+    console.log(allScore)
+  })
+
+  for (score in allScore.value){
+    stubyid({userid:score.userid}).then(({data})=>{
+      console.log('名称：')
+      console.log(data.data.username)
+      score.username = data.data.username
+    })
+  }
+
+  showScoreDialogVisible.value = true;
+}*/
+const showScore = async (row) => {
+  try {
+    // 获取考试分数数据
+    const { data } = await getGradeByEidAndUserid({ eid: row.eid });
+    allScore.value = data.data || [];
+
+    // 查询每个用户的用户名并更新分数表
+    const usernamePromises = allScore.value.map(async (score) => {
+      try {
+        const userResponse = await stubyid({ userid: score.userid });
+        return { ...score, username: userResponse.data.data.username || "未知用户" };
+      } catch (error) {
+        console.error(`获取用户 ${score.userid} 的用户名失败:`, error);
+        return { ...score, username: "未知用户" };
+      }
+    });
+
+    // 等待所有用户名查询完成
+    allScore.value = await Promise.all(usernamePromises);
+    console.log("更新后的分数数据:", allScore.value);
+
+    // 显示分数对话框
+    showScoreDialogVisible.value = true;
+  } catch (error) {
+    console.error("获取分数数据失败:", error);
+  }
 };
 
 </script>
