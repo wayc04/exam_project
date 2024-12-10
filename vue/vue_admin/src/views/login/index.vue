@@ -52,6 +52,8 @@ import {UserFilled, } from  '@element-plus/icons-vue'
 import {useRouter} from 'vue-router'
 import { ElMessage } from 'element-plus';
 
+
+
 const imgUrl = new URL('../../../public/images/login-head.png', import.meta.url).href
 
 const formType = ref(0)
@@ -146,6 +148,7 @@ const submitForm = async (FormEl) => {
                         console.log(data)
                         // localStorage.setItem('token', data.token)
                         localStorage.setItem('userInfo', JSON.stringify(data.data))
+                        localStorage.setItem('token', data.data.token)
                         // 页面跳转
                         router.push('/')
                     }
@@ -159,8 +162,6 @@ const submitForm = async (FormEl) => {
 }
 
 </script>
-
-
 
 
 <style lang="less" scoped>

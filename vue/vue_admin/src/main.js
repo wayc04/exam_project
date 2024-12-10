@@ -6,10 +6,10 @@ import * as ElementPlus from '@element-plus/icons-vue'
 import store from './store'
 
 router.beforeEach((to, from) => {
-  const userinfo = localStorage.getItem('userInfo')
-  if(!userinfo && to.path !== '/login') {
+  const token = localStorage.getItem('token')
+  if(!token && to.path !== '/login') {
     return '/login'
-  } else if (userinfo && to.path === '/login') {
+  } else if (token && to.path === '/login') {
     return '/'
   } else {
     return true

@@ -50,6 +50,7 @@
     // 退出登录
     const logout = (item, index) => {
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('token')
         router.push('/login');
         window.location.href = window.location.origin;
     }
