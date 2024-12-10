@@ -23,7 +23,7 @@
                 <div  class="el-dropdown-link flex-box">
                     <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png">    
                     </el-avatar>
-                    <p class="user-name">管理员</p>
+                    <p class="user-name" >{{ username }}</p>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu slot="dropdown">
@@ -38,7 +38,7 @@
 
 <script setup>
     import {useStore} from 'vuex';
-    import {computed} from 'vue';
+    import {computed, ref} from 'vue';
     import {useRoute, useRouter} from 'vue-router'
 
     const store = useStore();
@@ -47,6 +47,7 @@
     const router = useRouter();
     const selectMenu = computed(() => store.state.menu.selectMenu);
 
+    const username = ref(JSON.parse(localStorage.getItem('userInfo')).user.username)
     // 退出登录
     const logout = (item, index) => {
         localStorage.removeItem('userInfo');
