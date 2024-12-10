@@ -49,3 +49,12 @@ export const getAllPaper = (param) => {
 export const addExam = (param) => {
     return request.post('addExam', param)
 }
+
+//获取成绩
+export const getGradeByEidAndUserid = (param) => {
+    return request.post('getGradeByEidAndUserid', param)
+}
+//通过userid获取学生信息
+export const stubyid = (param) => {
+    return request.post('stubyid', param)
+}
