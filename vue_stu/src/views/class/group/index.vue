@@ -10,11 +10,11 @@
 
     <!-- 表格展示数据 -->
     <el-table :data="test" style="width: 100%">
-      <el-table-column label="考试id" prop="eid" width="180" />
-      <el-table-column label="试卷id" prop="pid" width="180" />
+      <!-- <el-table-column label="考试id" prop="eid" width="180" />
+      <el-table-column label="试卷id" prop="pid" width="180" /> -->
       <el-table-column label="考试名称" prop="pname" width="180" />
       <el-table-column label="课程id" prop="cno" width="180" />
-      <el-table-column label="学生id" prop="useid" width="180" />
+      <!-- <el-table-column label="学生id" prop="useid" width="180" />  -->
       <el-table-column label="考试开始时间" width="200">
         <template #default="scope">
           {{ formatDateTime(scope.row.examdate) }}
